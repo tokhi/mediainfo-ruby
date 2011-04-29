@@ -148,6 +148,10 @@ class MediaInfoLib::MediaInfo
     _option(param1, param2)
   end
   
+  def version()
+    option("Info_Version", "").sub /MediaInfoLib - v/, ""
+  end
+  
 	include(MediaInfoRubyisms_Streams)
 end
 
