@@ -1,7 +1,6 @@
 # Load the C++ library.
 $:.unshift "#{File.dirname(__FILE__)}/../ext/mediainfo_ruby/"
 
-puts "Loading mediainfo"
 require "mediainfo_ruby"
 
 module MediaInfoRubyisms_Streams
@@ -127,10 +126,28 @@ private
 		}
 		result
 	end
-
+  
 end
 
 class MediaInfoLib::MediaInfo
+  
+  def open(path)
+    res = _open(path)
+    raise Errno::ENOENT if 0 == res
+    
+    (yield self; close) if block_given?
+    
+    self
+  end
+  
+  def close
+    _close()
+  end
+  
+  def option(param1, param2) # TODO: WHAT ARE THOSE?
+    _option(param1, param2)
+  end
+  
 	include(MediaInfoRubyisms_Streams)
 end
 
