@@ -8,3 +8,4 @@ ext/mediainfo_ruby/Makefile
 
 pkg
 
+*.so
