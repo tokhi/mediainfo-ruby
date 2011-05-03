@@ -1,0 +1,30 @@
+PATH
+  remote: .
+  specs:
+    mediainfo-ruby (0.2.0)
+      rice
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    diff-lcs (1.1.2)
+    rice (1.4.2)
+    riot (0.12.3)
+      rr
+    rr (1.0.2)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mediainfo-ruby!
+  riot
+  rspec
