@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.date = %q{2010-10-06}
   s.description = %q{MediaInfo Ruby Bridge. Call MediaInfo lib directly}
   s.email = %q{felix.gilcher@asquera.de}
-  s.files = Dir.glob('{ext,lib}**/*.{rb,cpp,gemspec}')
+  s.files = Dir.glob('lib/**/*.rb') + ['mediainfo-ruby.gemspec'] + Dir.glob('ext/**/*.{rb,cpp}')
   
   s.extensions = ["ext/mediainfo_ruby/extconf.rb"]
   
