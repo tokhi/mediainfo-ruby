@@ -3,6 +3,22 @@ require 'pp'
 $:.unshift "#{File.dirname(__FILE__)}/../ext/mediainfo_ruby/"
 
 require "mediainfo_ruby"
+
+module MediaInfoLib
+   module AttrReaders
+    def m_attr_reader(attribute, infokey)
+      define_method attribute do
+        @stream_info[infokey]
+      end
+    end
+    
+    def date_reader(attribute, infokey)
+      
+    end
+  end
+end
+
+
 require "mediainfo-ruby/stream"
 require "mediainfo-ruby/general_stream"
 
@@ -132,6 +148,7 @@ private
   
 end
 
+
 module MediaInfoLib
 
   class MediaInfo
@@ -161,6 +178,10 @@ module MediaInfoLib
         end
       end
       streams
+    end
+
+    def general
+       MediaInfoLib::GeneralStream.new(introspect[:general])
     end
 
     def video?
