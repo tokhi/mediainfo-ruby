@@ -1,7 +1,10 @@
+require 'pp'
 # Load the C++ library.
 $:.unshift "#{File.dirname(__FILE__)}/../ext/mediainfo_ruby/"
 
 require "mediainfo_ruby"
+require "mediainfo-ruby/stream"
+require "mediainfo-ruby/general_stream"
 
 module MediaInfoRubyisms_Streams
 	ThingsWithMultipleStreams = [:video, :audio]
@@ -129,29 +132,57 @@ private
   
 end
 
-class MediaInfoLib::MediaInfo
-  
-  def open(path)
-    res = _open(path)
-    raise Errno::ENOENT if 0 == res
-    
-    (yield self; close) if block_given?
-    
-    self
-  end
-  
-  def close
-    _close()
-  end
-  
-  def option(param1, param2) # TODO: WHAT ARE THOSE?
-    _option(param1, param2)
-  end
-  
-  def version()
-    option("Info_Version", "").sub /MediaInfoLib - v/, ""
-  end
-  
-	include(MediaInfoRubyisms_Streams)
-end
+module MediaInfoLib
 
+  class MediaInfo
+  
+    SECTIONS             = [:general, :video, :audio, :image, :menu, :text]
+    STREAM_SECTIONS      = SECTIONS - [:general]
+  
+    #def initialize(path = nil)
+    #  self.open(path) unless path.nil?
+    #end
+
+    def open(path)
+      res = _open(path)
+      raise Errno::ENOENT if 0 == res
+    
+      (yield self; close) if block_given?
+    
+      self
+    end
+ 
+    def streams
+      streams = {
+      }
+      introspect.each do |k, v| 
+        if STREAM_SECTIONS.include?(k)
+          streams[k] = v
+        end
+      end
+      streams
+    end
+
+    def video?
+      (!streams[:video].nil? && streams[:video].count > 0)
+    end
+
+    def audio?
+      (!streams[:audio].nil? && streams[:audio].count > 0)
+    end
+  
+    def close
+      _close()
+    end
+  
+    def option(param1, param2) # TODO: WHAT ARE THOSE?
+      _option(param1, param2)
+    end
+  
+    def version()
+      option("Info_Version", "").sub /MediaInfoLib - v/, ""
+    end
+  
+  	include(MediaInfoRubyisms_Streams)
+  end
+end
