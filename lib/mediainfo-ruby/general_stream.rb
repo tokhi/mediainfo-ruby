@@ -20,7 +20,8 @@ module MediaInfoLib
     end
     
     def modified_date
-      Time.parse(@stream_info["File_Modified_Date"])
+      # libmediainfo returns "UTC 2011-05-04 09:52:15" which gets parsed wrong, appending "UTC" fixes the parsing
+      Time.parse("#{@stream_info["File_Modified_Date"]} UTC")
     end
     
     def image_count
