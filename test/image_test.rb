@@ -21,7 +21,7 @@ context "given an image file" do
   
     asserts(:format).equals("PNG")
     asserts(:mime_type).equals("image/png")
-    asserts(:modified_date).equals(Time.parse '2011-05-04 07:52:15 +0200')
+    asserts(:modified_date).equals(File.mtime "#{File.dirname(__FILE__)}/testdata/Test_robert.png")
     asserts(:image_count).equals(1)
     asserts(:filename).equals('Test_robert.png')
     asserts(:filesize).equals(15119)

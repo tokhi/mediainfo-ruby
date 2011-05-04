@@ -12,8 +12,9 @@ end
 context "given a video file" do
 
   setup do
+    testfile = "#{File.dirname(__FILE__)}/testdata/IMG_0762.MOV"
     info = MediaInfoLib::MediaInfo.new
-    info.open("#{File.dirname(__FILE__)}/testdata/12243_20110401-thema-scheibenputzer-PAL_MPG_H264.mpg")
+    info.open(testfile)
   end
 
   asserts("general info") { topic.general } 
@@ -29,12 +30,12 @@ context "given a video file" do
       topic.general
     end
   
-    asserts(:format).equals("MPEG-PS")
-    asserts(:mime_type).equals("video/MP2P")
-    asserts(:modified_date).equals(Time.parse '2011-04-06 16:03:39 +0200')
+    asserts(:format).equals("MPEG-4")
+    asserts(:mime_type).equals("video/mp4")
+    asserts(:modified_date).equals(File.mtime("#{File.dirname(__FILE__)}/testdata/IMG_0762.MOV"))
     asserts(:image_count).equals(0)
-    asserts(:filename).equals('12243_20110401-thema-scheibenputzer-PAL_MPG_H264.mpg')
-    asserts(:filesize).equals(1047519)
+    asserts(:filename).equals('IMG_0762.MOV')
+    asserts(:filesize).equals(1882218)
     
   end
   
