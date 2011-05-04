@@ -208,11 +208,19 @@ module MediaInfoLib
     def video?
       (!streams[:video].nil? && streams[:video].count > 0)
     end
+    
+    def video
+      streams[:video].first
+    end
 
     def audio?
       (!streams[:audio].nil? && streams[:audio].count > 0)
     end
   
+    def audio
+      streams[:audio].first
+    end
+    
     def image?
       !streams[:image].nil?
     end
