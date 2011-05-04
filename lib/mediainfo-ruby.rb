@@ -21,6 +21,11 @@ end
 
 require "mediainfo-ruby/stream"
 require "mediainfo-ruby/general_stream"
+require "mediainfo-ruby/audio_stream"
+require "mediainfo-ruby/video_stream"
+require "mediainfo-ruby/image_stream"
+require "mediainfo-ruby/menu_stream"
+require "mediainfo-ruby/text_stream"
 
 module MediaInfoRubyisms_Streams
 	ThingsWithMultipleStreams = [:video, :audio]
@@ -155,6 +160,15 @@ module MediaInfoLib
   
     SECTIONS             = [:general, :video, :audio, :image, :menu, :text]
     STREAM_SECTIONS      = SECTIONS - [:general]
+    
+    STREAM_TYPES_MAP = {
+      :general => MediaInfoLib::GeneralStream,
+      :video => MediaInfoLib::VideoStream,
+      :audio => MediaInfoLib::AudioStream,
+      :image => MediaInfoLib::ImageStream,
+      :menu => MediaInfoLib::MenuStream,
+      :text => MediaInfoLib::TextStream
+    }
   
     #def initialize(path = nil)
     #  self.open(path) unless path.nil?
@@ -175,15 +189,20 @@ module MediaInfoLib
       streams = {
       }
       introspect.each do |k, v| 
-        if STREAM_SECTIONS.include?(k)
-          streams[k] = v
+        next if STREAM_TYPES_MAP[k].nil? || v.nil? || v.empty?
+        
+        if v.respond_to? :to_ary
+          streams[k] = v.map {|s| STREAM_TYPES_MAP[k].new(s)}
+        else
+          streams[k] = STREAM_TYPES_MAP[k].new(v)
         end
+        
       end
       streams
     end
 
     def general
-       MediaInfoLib::GeneralStream.new(introspect[:general])
+      streams[:general]
     end
 
     def video?
@@ -195,9 +214,17 @@ module MediaInfoLib
     end
   
     def image?
-      (!streams[:image].nil? && streams[:image].count > 0)
+      !streams[:image].nil?
     end
   
+    def text?
+      !streams[:text].nil?
+    end
+    
+    def menu?
+      !streams[:menu].nil?
+    end
+    
     def close
       _close()
     end
