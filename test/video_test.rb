@@ -36,17 +36,54 @@ context "given a video file" do
     asserts(:image_count).equals(0)
     asserts(:filename).equals('IMG_0762.MOV')
     asserts(:filesize).equals(1882218)
-    
   end
   
-  context "> streams" do
+  denies(:video).nil
+  
+  context "> video stream" do
     
     setup do
-      topic.streams
+      topic.video
     end
+    
+    asserts(:width).equals(480)
+    asserts(:height).equals(272)
+    asserts(:aspect_ratio).equals('16:9')
+    
+    asserts(:codec).equals("avc1")
+    
+    asserts(:duration).equals(19033)
+    
+    asserts(:cfr?)
+    denies(:vfr?)
+    asserts(:framerate).equals(30)
+    asserts(:fps).equals(30)
+    
+    asserts(:vbr?)
+    denies(:cbr?)
+    asserts(:bitrate).equals(723323)
+    
+    
     
   end
   
+  denies(:audio).nil
   
+  context "> audio stream" do
+    
+    setup do
+      topic.audio
+    end
   
+    asserts(:mono?)
+    denies(:stereo?)
+    
+    asserts(:duration).equals(19017)
+  
+    asserts(:bitrate).equals(64000)
+    asserts(:codec).equals("AAC")
+    asserts(:samplerate).equals(44100)
+  
+  end
+    
 end
