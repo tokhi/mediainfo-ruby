@@ -1,7 +1,7 @@
 require 'pp'
+require 'time'
 # Load the C++ library.
 $:.unshift "#{File.dirname(__FILE__)}/../ext/mediainfo_ruby/"
-
 require "mediainfo_ruby"
 
 module MediaInfoLib
@@ -161,6 +161,8 @@ module MediaInfoLib
     #end
 
     def open(path)
+      empty_values = true
+      
       res = _open(path)
       raise Errno::ENOENT if 0 == res
     
