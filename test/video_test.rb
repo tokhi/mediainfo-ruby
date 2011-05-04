@@ -28,6 +28,11 @@ context "given a video file" do
     end
   
     asserts(:format).equals("MPEG-PS")
+    asserts(:mime_type).equals("video/MP2P")
+    asserts(:modified_date).equals(Time.parse '2011-05-03 19:23:39 +0200')
+    asserts(:image_count).equals(0)
+    asserts(:filename).equals('12243_20110401-thema-scheibenputzer-PAL_MPG_H264.mpg')
+    asserts(:filesize).equals(1047519)
     
   end
   

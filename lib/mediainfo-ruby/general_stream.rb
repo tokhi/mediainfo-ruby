@@ -7,6 +7,26 @@ module MediaInfoLib
       @stream_info["Format"]
     end
     
+    def mime_type
+      @stream_info["InternetMediaType"]
+    end
+    
+    def filesize
+      @stream_info["FileSize"].to_i
+    end
+    
+    def filename
+      File.basename(@stream_info["CompleteName"])
+    end
+    
+    def modified_date
+      Time.parse(@stream_info["File_Modified_Date"])
+    end
+    
+    def image_count
+      @stream_info["ImageCount"].to_i
+    end
+    
    # mediainfo_attr_reader :codec_id, "Codec ID"
    # 
    # mediainfo_duration_reader :duration

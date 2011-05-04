@@ -18,6 +18,11 @@ context "given an image file" do
     end
   
     asserts(:format).equals("PNG")
+    asserts(:mime_type).equals("image/png")
+    asserts(:modified_date).equals(Time.parse '2011-05-03 19:23:48 +0200')
+    asserts(:image_count).equals(1)
+    asserts(:filename).equals('Test_robert.png')
+    asserts(:filesize).equals(15119)
     
   end
   
