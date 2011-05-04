@@ -192,6 +192,10 @@ module MediaInfoLib
       (!streams[:audio].nil? && streams[:audio].count > 0)
     end
   
+    def image?
+      (!streams[:image].nil? && streams[:image].count > 0)
+    end
+  
     def close
       _close()
     end
