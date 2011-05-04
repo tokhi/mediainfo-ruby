@@ -1,14 +1,4 @@
 
-context "given a path to a nonexistant file" do
-	
-  setup do
-    MediaInfoLib::MediaInfo.new
-  end
- 
-  asserts("raises an exeption") { topic.open('not/there') }.raises(Errno::ENOENT)  
-  
-end
-
 context "given a video file" do
 
   setup do
