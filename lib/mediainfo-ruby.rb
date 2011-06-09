@@ -210,7 +210,7 @@ module MediaInfoLib
     end
     
     def video
-      streams[:video].first
+      streams[:video].first unless streams[:video].nil?
     end
 
     def audio?
@@ -218,7 +218,7 @@ module MediaInfoLib
     end
   
     def audio
-      streams[:audio].first
+      streams[:audio].first unless streams[:audio].nil?
     end
     
     def image?
