@@ -8,6 +8,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     diff-lcs (1.1.2)
+    rake (0.8.7)
     rice (1.4.2)
     riot (0.12.3)
       rr
@@ -26,5 +27,6 @@ PLATFORMS
 
 DEPENDENCIES
   mediainfo-ruby!
+  rake
   riot
   rspec
