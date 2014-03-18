@@ -35,7 +35,8 @@ We'll add more rubyisms as we feel they are needed, but so far that's all. You c
 
 == building on gentoo
 
-The mediainfo package works in general just fine, but forgets to install the headers for the language bindings. After installing mediainfo via 'emerge media-video/mediainfo' the headers must be placed in the appropriate location. To do so unpack the gentoo package and copy the directory MediaInfoLib/Source/MediaInfoDLL to /usr/include.
+The mediainfo package works in general just fine, but forgets to install the headers for the language bindings. After installing mediainfo via 'emerge media-video/mediainfo' and 'libmediainfo' the headers must be placed in the appropriate location. To do so unpack the gentoo package and copy the directory MediaInfoLib/Source/MediaInfoDLL to /usr/include.
+or you can find them [here](https://drive.google.com/file/d/0B3gVhdOy8u3oR3YyRnhxNVRpb1E/edit?usp=sharing)
 
 == Mac OSX notes
 
